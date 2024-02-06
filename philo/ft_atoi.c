@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:51:57 by abablil           #+#    #+#             */
-/*   Updated: 2024/01/24 22:52:10 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/06 14:58:57 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ static int	ft_whitespaces(char const *str)
 	return (i);
 }
 
-static int	cant_handle(int sign)
-{
-	if (sign == 1)
-		return (-1);
-	else
-		return (0);
-}
-
 int	ft_atoi(char const *str)
 {
 	int				i;
@@ -38,7 +30,7 @@ int	ft_atoi(char const *str)
 
 	sign = 1;
 	result = 0;
-	if (str[0] == '\0' || !str)
+	if (!str || str[0] == '\0')
 		return (result);
 	i = ft_whitespaces(str);
 	if (str[i] == '+' || str[i] == '-')
@@ -50,7 +42,7 @@ int	ft_atoi(char const *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result * 10 + (str[i] - '0') > 9223372036854775807)
-			return (cant_handle(sign));
+			return (-1);
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
