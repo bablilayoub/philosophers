@@ -2,7 +2,7 @@ NAME			=	philo
 HEADER			=	./philo/philosophers.h
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
-SRCS			=	./philo/main.c ./philo/utils.c ./philo/ft_atoi.c
+SRCS			=	./philo/main.c ./philo/utils.c
 OBJ				=	$(SRCS:.c=.o)
 
 all: $(NAME)
