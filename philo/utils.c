@@ -6,18 +6,27 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/07 16:44:34 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:55:06 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-uint64_t	get_time(void) 
+long	get_time(void)
 {
-	struct timeval	tv;
+	struct timeval	time;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void custom_usleep(long time)
+{
+	long start;
+
+	start = get_time();
+	while (get_time() < start + time)
+		usleep(time / 10);
 }
 
 int exit_program(char *message)

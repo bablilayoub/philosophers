@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/07 16:44:31 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:55:08 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 
 // Utils
-uint64_t	get_time(void);
+long		get_time(void);
 int			get_number(char *str);
 int			exit_program(char *message);
+void		custom_usleep(long time);
