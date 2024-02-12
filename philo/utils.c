@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/08 16:55:06 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:56:21 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,11 @@ int	get_number(char *str)
 		i++;
 	}
 	return (result * sign);
+}
+
+void print(t_philo *philo, char *message)
+{
+	pthread_mutex_lock(&philo->data->print);
+	printf("%ld %d %s\n", get_time() - philo->data->start_time, philo->id, message);
+	pthread_mutex_unlock(&philo->data->print);
 }
