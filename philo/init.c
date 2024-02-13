@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 19:21:12 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:40:20 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int init_simulation(t_data *data)
 			return (-1);
 		pthread_detach(data->philos[i].thread);
 	}
-	check_death(data);
+	monitor(data);
 	return (0);
 }

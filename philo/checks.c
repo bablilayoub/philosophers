@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:39 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 20:29:41 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:44:37 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	all_full(int *track, t_data *data)
 	return (1);
 }
 
-void check_death(t_data *data)
+void	monitor(t_data *data)
 {
 	int i;
 	int track;
