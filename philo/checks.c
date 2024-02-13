@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:39 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 13:38:54 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:29:41 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,6 @@ int	all_full(int *track, t_data *data)
 	return (1);
 }
 
-int	all_alive(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->n_philos)
-	{
-		if (data->philos[i].dead)
-			return (0);
-	}
-	return (1);
-}
-
 void check_death(t_data *data)
 {
 	int i;
@@ -47,7 +34,7 @@ void check_death(t_data *data)
 	track = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&data->print);
+		pthread_mutex_lock(&data->lock);
 		i = -1;
 		while (++i < data->n_philos)
 		{
@@ -55,14 +42,14 @@ void check_death(t_data *data)
 				break;
 			if (get_time() - data->philos[i].last_meal > data->time_to_die)
 			{
+				pthread_mutex_lock(&data->print);
 				printf("%ld %d died\n", get_time() - data->start_time, data->philos[i].id);
 				data->philos[i].dead = 1;
 				track = 1;
+				break ;
 			}
-			if ((data->n_times_to_eat != -1 && data->philos[i].meals >= data->n_times_to_eat) || track)
-				break;
 		}
-		pthread_mutex_unlock(&data->print);
+		pthread_mutex_unlock(&data->lock);
 		if (track)
 			break ;
 	}

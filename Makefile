@@ -1,7 +1,7 @@
 NAME			=	philo
 HEADER			=	./philo/philosophers.h
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -fsanitize=thread
+CFLAGS			=	-Wall -Wextra -Werror
 SRCS			=	./philo/main.c ./philo/utils.c ./philo/checks.c ./philo/init.c ./philo/routing.c
 OBJ				=	$(SRCS:.c=.o)
 

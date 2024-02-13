@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 13:31:19 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/13 19:21:12 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int init_data(t_data *data, char **args)
 	data->philos = NULL;
 	data->forks = NULL;
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->lock, NULL);
 	return (0);
 }
 
@@ -45,9 +46,10 @@ int init_philos(t_data *data)
 	while (++i < data->n_philos)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].last_meal = data->start_time;
+		data->philos[i].last_meal = data->start_time; 
 		data->philos[i].meals = 0;
 		data->philos[i].dead = 0;
+		data->philos[i].is_full = 0;
 		data->philos[i].data = data;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];

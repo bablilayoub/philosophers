@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/12 18:02:32 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/13 19:21:10 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ typedef struct s_data
 	long time_to_sleep;
 	int n_times_to_eat;
 	long start_time;
-	struct s_philo *philos;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print;
+	pthread_mutex_t lock;
+	struct s_philo *philos;
 } t_data;
 
 typedef struct s_philo
@@ -35,10 +36,11 @@ typedef struct s_philo
 	int id;
 	long last_meal;
 	long meals;
+	int dead;
+	int is_full;
 	pthread_t thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
-	int dead;
 	struct s_data *data;
 } t_philo;
 
@@ -50,10 +52,6 @@ void	custom_usleep(long time);
 void	print(t_philo *philo, char *message);
 
 // Routine
-void take_forks(t_philo *philo);
-void eat(t_philo *philo);
-void sleeping(t_philo *philo);
-void thinking(t_philo *philo);
 void *routine(t_philo *philo);
 
 // Init
@@ -63,5 +61,4 @@ int init_simulation(t_data *data);
 
 // Checks
 int	all_full(int *track, t_data *data);
-int	all_alive(t_data *data);
 void check_death(t_data *data);
