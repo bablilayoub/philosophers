@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 20:26:21 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:40:14 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void custom_usleep(long time)
 
 	start = get_time();
 	while (get_time() < start + time)
-		usleep(time / 10);
+		usleep(500);
 }
 
 int exit_program(char *message)

@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 20:40:01 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:44:12 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	long			last_meal;
 	long			meals;
 	int				dead;
+	int				is_eating;
 	int				is_full;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;

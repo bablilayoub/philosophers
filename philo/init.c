@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 20:40:20 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:44:07 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int init_philos(t_data *data)
 		data->philos[i].last_meal = data->start_time; 
 		data->philos[i].meals = 0;
 		data->philos[i].dead = 0;
+		data->philos[i].is_eating = 0;
 		data->philos[i].is_full = 0;
 		data->philos[i].data = data;
 		data->philos[i].left_fork = &data->forks[i];

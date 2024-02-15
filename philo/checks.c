@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:58:39 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 20:44:37 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:45:25 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ void	monitor(t_data *data)
 		{
 			if (data->n_times_to_eat != -1 && all_full(&track, data))
 				break;
-			if (get_time() - data->philos[i].last_meal > data->time_to_die)
+			if (get_time() - data->philos[i].last_meal > data->time_to_die && !data->philos[i].is_eating)
 			{
 				pthread_mutex_lock(&data->print);
 				printf("%ld %d died\n", get_time() - data->start_time, data->philos[i].id);
 				data->philos[i].dead = 1;
+				custom_usleep(100);
 				track = 1;
 				break ;
 			}

@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:55:29 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/13 19:21:04 by abablil          ###   ########.fr       */
+/*   Updated: 2024/02/15 12:44:21 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void take_forks(t_philo *philo)
 int	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->lock);
+	philo->is_eating = 1;
 	philo->last_meal = get_time();
 	print(philo, "is eating");
 	philo->meals++;
@@ -30,6 +31,7 @@ int	eat(t_philo *philo)
 		philo->is_full = 1;
 	pthread_mutex_unlock(&philo->data->lock);
 	custom_usleep(philo->data->time_to_eat);
+	philo->is_eating = 0;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	if (philo->is_full)
@@ -51,7 +53,7 @@ void thinking(t_philo *philo)
 int	is_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->lock);
-	if (get_time() - philo->last_meal > philo->data->time_to_die)
+	if (get_time() - philo->last_meal > philo->data->time_to_die && !philo->is_eating)
 	{
 		pthread_mutex_unlock(&philo->data->lock);
 		return (1);
