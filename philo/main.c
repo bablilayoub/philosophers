@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:55 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/12 18:02:25 by abablil          ###   ########.fr       */
+/*   Updated: 2024/03/30 06:18:02 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int main(int total, char **args)
 		return (exit_program("Failed to init data"));
 	if (init_philos(&data) == -1)
 		return (exit_program("Failed to init philos"));
-	if (init_simulation(&data) == -1)
-		return (exit_program("Failed to start simulation"));
+	if (init_checker(&data) == -1)
+		return (exit_program("Failed to init checker"));
+	if (checker_monitor(&data) == -1)
+		return (exit_program("Failed to start monitor"));
 	return (0);
 }

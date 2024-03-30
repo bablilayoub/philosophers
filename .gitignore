@@ -3,3 +3,4 @@
 /philo/.DS_Store
 /philo/a.out
 /philo/philo
+/philo/*.o

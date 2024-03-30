@@ -6,27 +6,44 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/02/15 12:40:14 by abablil          ###   ########.fr       */
+/*   Updated: 2024/03/30 06:25:27 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	return (time.tv_sec * 1000 + (time.tv_usec / 1000));
 }
 
-void custom_usleep(long time)
+void custom_usleep(long time_ms)
 {
-	long start;
+	long time;
 
-	start = get_time();
-	while (get_time() < start + time)
-		usleep(500);
+	time = get_time();
+	while (get_time() - time < time_ms)
+		usleep(100);
+}
+
+void	end_simulation(t_data *data)
+{
+	pthread_mutex_lock(&data->death_lock);
+	data->is_over = 1;
+	pthread_mutex_unlock(&data->death_lock);
+}
+
+long long	get_simul_start(t_data *data)
+{
+	long long	start_time;
+
+	pthread_mutex_lock(&data->time_lock);
+	start_time = data->start_time;
+	pthread_mutex_unlock(&data->time_lock);
+	return (start_time);
 }
 
 int exit_program(char *message)
@@ -62,9 +79,30 @@ int	get_number(char *str)
 	return (result * sign);
 }
 
-void print(t_philo *philo, char *message)
+void print(t_philo *philo, int message)
 {
-	pthread_mutex_lock(&philo->data->print);
-	printf("%ld %d %s\n", get_time() - philo->data->start_time, philo->id, message);
-	pthread_mutex_unlock(&philo->data->print);
+	long long	start_time;
+	char		*str;
+	
+	start_time = get_simul_start(philo->data);
+	pthread_mutex_lock(&philo->data->print_lock);
+	if (!not_over_yet(philo->data))
+	{
+		pthread_mutex_unlock(&philo->data->print_lock);
+		return ;
+	}
+	if (message == FORK)
+		str = "has taken a fork";
+	else if (message == EAT)
+		str = "is eating";
+	else if (message == SLEEP)
+		str = "is sleeping";
+	else if (message == THINK)
+		str = "is thinking";
+	else
+		str = "died";
+	printf("%lld %d %s\n", get_time() - start_time, philo->id, str);
+	if (message == DEAD)
+		end_simulation(philo->data);
+	pthread_mutex_unlock(&philo->data->print_lock);
 }

@@ -1,15 +1,15 @@
 NAME			=	philo
-HEADER			=	./philo/philosophers.h
+HEADER			=	philosophers.h
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
-SRCS			=	./philo/main.c ./philo/utils.c ./philo/checks.c ./philo/init.c ./philo/routing.c
+CFLAGS			=	-Wall -Wextra -Werror -fsanitize=thread -g
+SRCS			=	main.c utils.c checker.c init.c routing.c
 OBJ				=	$(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "Compiling $(NAME)..."
-	@$(CC) $(CFLAGS) $(OBJ) -o ./philo/$(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "- Compiled -"
 
 %.o: %.c $(HEADER)
@@ -23,7 +23,7 @@ clean:
 
 fclean : clean
 	@echo "Full Cleaning ..."
-	@rm -f $(OBJ) ./philo/$(NAME)
+	@rm -f $(OBJ) $(NAME)
 	@echo "Full Cleaning Done"
 
 re: fclean all
