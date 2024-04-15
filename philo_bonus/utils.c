@@ -6,24 +6,19 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/03/30 22:33:39 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/15 23:43:05 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	end_simulation(t_data *data)
-{
-	pthread_mutex_lock(&data->death_lock);
-	data->is_over = 1;
-	pthread_mutex_unlock(&data->death_lock);
-}
-
-int	exit_program(char *message)
+void	exit_program(char *message, int free, t_data *data)
 {
 	if (message)
 		printf("%s\n", message);
-	return (-1);
+	if (free)
+		free_data(data);
+	exit(1);
 }
 
 int	get_number(char *str)
@@ -52,30 +47,10 @@ int	get_number(char *str)
 	return (result * sign);
 }
 
-void	print(t_philo *philo, int message)
+void	print(t_data *philo, char *message)
 {
-	long long	start_time;
-	char		*str;
-
-	start_time = get_start_time(philo->data);
-	pthread_mutex_lock(&philo->data->print_lock);
-	if (!not_over_yet(philo->data))
-	{
-		pthread_mutex_unlock(&philo->data->print_lock);
-		return ;
-	}
-	if (message == FORK)
-		str = "has taken a fork";
-	else if (message == EAT)
-		str = "is eating";
-	else if (message == SLEEP)
-		str = "is sleeping";
-	else if (message == THINK)
-		str = "is thinking";
-	else
-		str = "died";
-	printf("%lld %d %s\n", get_time() - start_time, philo->id, str);
-	if (message == DEAD)
-		end_simulation(philo->data);
-	pthread_mutex_unlock(&philo->data->print_lock);
+	sem_wait(philo->print);
+	printf("%lld %ld %s\n", get_time() - philo->start_time,
+		philo->philo_id, message);
+	sem_post(philo->print);
 }
