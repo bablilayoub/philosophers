@@ -28,4 +28,4 @@ fclean : clean
 
 re: fclean all
 
-.PHONY: comp_start clean
+.PHONY: clean

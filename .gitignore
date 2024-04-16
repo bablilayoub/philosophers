@@ -4,3 +4,7 @@
 /philo/a.out
 /philo/philo
 /philo/*.o
+/philo_bonus/.DS_Store
+/philo_bonus/a.out
+/philo_bonus/philo_bonus
+/philo_bonus/*.o
