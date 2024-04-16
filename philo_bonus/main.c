@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:55 by abablil           #+#    #+#             */
-/*   Updated: 2024/04/15 23:37:43 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/16 10:57:49 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	main(int total, char **args)
 		exit_program("Failed to init data", 0, &data);
 	if (init_process(&data) == -1)
 		exit_program("Failed to init process", 1, &data);
-	free_data(&data);
+	delete_data(&data, 1);
 	return (0);
 }

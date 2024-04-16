@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/04/15 23:42:20 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/16 11:02:15 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 typedef struct s_data
 {
-	int				*ids;
+	int				*philos;
 	long			meals;
 	long			last_time_eat;
 	long			start_time;
@@ -47,7 +47,7 @@ typedef struct s_data
 void		exit_program(char *message, int free, t_data *data);
 int			get_number(char *str);
 void		print(t_data *philo, char *message);
-void		free_data(t_data *data);
+void		delete_data(t_data *data, int free_philos);
 
 // Time
 long long	get_time(void);
@@ -60,3 +60,6 @@ void		*check_death(void *args);
 // Init
 int			init_data(t_data *data, char **args);
 int			init_process(t_data *data);
+
+// Checker
+void		*check_death(void *args);

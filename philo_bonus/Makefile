@@ -1,8 +1,8 @@
 NAME			=	philo_bonus
 HEADER			=	philosophers.h
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -g
-SRCS			=	main.c utils.c init.c routing.c time.c
+CFLAGS			=	-Wall -Wextra -Werror
+SRCS			=	main.c utils.c init.c routing.c time.c checker.c
 OBJ				=	$(SRCS:.c=.o)
 
 all: $(NAME)
@@ -28,4 +28,4 @@ fclean : clean
 
 re: fclean all
 
-.PHONY: comp_start clean
+.PHONY: clean
