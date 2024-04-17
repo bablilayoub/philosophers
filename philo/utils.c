@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/03/30 22:33:39 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:35:49 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	end_simulation(t_data *data)
 	pthread_mutex_unlock(&data->death_lock);
 }
 
-int	exit_program(char *message)
+int	exit_program(char *message, t_data *data, int free_data)
 {
 	if (message)
 		printf("%s\n", message);
+	if (free_data)
+		delete_data(data, free_data);
 	return (-1);
 }
 

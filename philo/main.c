@@ -6,13 +6,13 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:55 by abablil           #+#    #+#             */
-/*   Updated: 2024/03/30 22:27:44 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:34:11 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	delete_data(t_data *data)
+void	delete_data(t_data *data, int free_data)
 {
 	int	i;
 
@@ -25,8 +25,11 @@ void	delete_data(t_data *data)
 	pthread_mutex_destroy(&data->print_lock);
 	pthread_mutex_destroy(&data->death_lock);
 	pthread_mutex_destroy(&data->time_lock);
-	free(data->forks);
-	free(data->philos);
+	if (free_data)
+	{
+		free(data->forks);
+		free(data->philos);
+	}
 }
 
 int	main(int total, char **args)
@@ -34,15 +37,15 @@ int	main(int total, char **args)
 	t_data	data;
 
 	if (total < 5 || total > 6)
-		return (exit_program("Invalid number of arguments"));
+		return (exit_program("Invalid number of arguments", &data, 0));
 	if (init_data(&data, args) == -1)
-		return (exit_program("Failed to init data"));
+		return (exit_program("Failed to init data", &data, 0));
 	if (init_philos(&data) == -1)
-		return (exit_program("Failed to init philos"));
+		return (exit_program("Failed to init philos", &data, 0));
 	if (init_checker(&data) == -1)
-		return (exit_program("Failed to init checker"));
+		return (exit_program("Failed to init checker", &data, 1));
 	if (checker_monitor(&data) == -1)
-		return (exit_program("Failed to start monitor"));
-	delete_data(&data);
+		return (exit_program("Failed to start monitor", &data, 1));
+	delete_data(&data, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/03/30 22:36:32 by abablil          ###   ########.fr       */
+/*   Updated: 2024/04/16 19:40:48 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ typedef struct s_philo
 	struct s_data	*data;
 }	t_philo;
 
+// Main
+void		delete_data(t_data *data, int free_data);
+
 // Utils
 int			get_number(char *str);
-int			exit_program(char *message);
+int			exit_program(char *message, t_data *data, int free_data);
 void		end_simulation(t_data *data);
 void		print(t_philo *philo, int message);
 
