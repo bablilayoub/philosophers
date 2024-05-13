@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/04/16 11:02:15 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/13 13:28:45 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@
 
 typedef struct s_data
 {
-	int				*philos;
-	long			meals;
-	long			last_time_eat;
-	long			start_time;
-	sem_t			*print;
-	sem_t			*forks;
 	int				n_philos;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			n_times_to_eat;
+	int				*philos;
 	long			philo_id;
-	pthread_t		check_monitor;
+	long			start_time;
+	long			meals_count;
+	long			last_time_eat;
+	sem_t			*print;
+	sem_t			*forks;
+	pthread_t		checker_monitor;
 }	t_data;
 
 // Utils
 void		exit_program(char *message, int free, t_data *data);
 int			get_number(char *str);
-void		print(t_data *philo, char *message);
+void		print(t_data *philo, int message);
 void		delete_data(t_data *data, int free_philos);
 
 // Time
@@ -55,11 +55,10 @@ void		custom_usleep(int time_ms);
 
 // Routine
 void		*routine(t_data *data);
-void		*check_death(void *args);
 
 // Init
 int			init_data(t_data *data, char **args);
 int			init_process(t_data *data);
 
 // Checker
-void		*check_death(void *args);
+void		*checker(void *args);

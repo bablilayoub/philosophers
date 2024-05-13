@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/04/16 19:33:05 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/13 19:18:12 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ int	init_data(t_data *data, char **args)
 	data->philos = malloc(sizeof(int) * data->n_philos);
 	if (!data->philos)
 		return (-1);
-	data->meals = 0;
+	data->meals_count = 0;
 	data->forks = NULL;
+	data->print = NULL;
 	data->start_time = 0;
 	data->last_time_eat = 0;
 	if (init_semaphores(data) == -1)
@@ -67,9 +68,9 @@ int	init_process(t_data *data)
 		if (data->philos[i] == 0)
 		{
 			data->philo_id = i + 1;
-			data->last_time_eat = data->start_time;
-			if (pthread_create(&data->check_monitor,
-					NULL, &check_death, data))
+			data->last_time_eat = get_time();
+			if (pthread_create(&data->checker_monitor,
+					NULL, &checker, data))
 				exit_program("Failed to create thread", 1, data);
 			routine(data);
 		}
