@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/13 13:28:45 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:05:21 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_data
 	long			n_times_to_eat;
 	int				*philos;
 	long			philo_id;
-	long			start_time;
 	long			meals_count;
-	long			last_time_eat;
+	long long		start_time;
+	long long		last_meal;
 	sem_t			*print;
 	sem_t			*forks;
-	pthread_t		checker_monitor;
+	pthread_t		monitor_thread;
 }	t_data;
 
 // Utils

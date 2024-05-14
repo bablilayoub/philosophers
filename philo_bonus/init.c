@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/13 19:18:12 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:31:15 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	init_semaphores(t_data *data)
 {
-	sem_unlink("forks");
-	sem_unlink("print");
-	data->forks = sem_open("forks", O_CREAT, 0644, data->n_philos);
+	sem_unlink("/forks");
+	sem_unlink("/print");
+	data->forks = sem_open("/forks", O_CREAT, 0644, data->n_philos);
 	if (data->forks == SEM_FAILED)
 		return (-1);
-	data->print = sem_open("print", O_CREAT, 0644, 1);
+	data->print = sem_open("/print", O_CREAT, 0644, 1);
 	if (data->print == SEM_FAILED)
 		return (-1);
 	return (0);
@@ -45,7 +45,7 @@ int	init_data(t_data *data, char **args)
 	data->forks = NULL;
 	data->print = NULL;
 	data->start_time = 0;
-	data->last_time_eat = 0;
+	data->last_meal = 0;
 	if (init_semaphores(data) == -1)
 	{
 		free(data->philos);
@@ -68,10 +68,12 @@ int	init_process(t_data *data)
 		if (data->philos[i] == 0)
 		{
 			data->philo_id = i + 1;
-			data->last_time_eat = get_time();
-			if (pthread_create(&data->checker_monitor,
+			data->last_meal = data->start_time;
+			if (pthread_create(&data->monitor_thread,
 					NULL, &checker, data))
-				exit_program("Failed to create thread", 1, data);
+				exit_program("Failed to create the thread", 1, data);
+			if (pthread_detach(data->monitor_thread) != 0)
+				exit_program("Failed to detach the thread", 1, data);
 			routine(data);
 		}
 	}
