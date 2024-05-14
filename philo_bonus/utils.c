@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 17:52:29 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:38:00 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	get_number(char *str)
 	return (result * sign);
 }
 
-void	print(t_data *data, int	message)
+void	print(t_data *data, int message)
 {
 	char		*str;
 	long long	current_time;
@@ -88,6 +88,7 @@ void	print(t_data *data, int	message)
 		str = "is thinking";
 	else
 		str = "died";
-	printf("%lld %ld %s\n", current_time - data->start_time, data->philo_id, str);
+	printf("%lld %ld %s\n", current_time - data->start_time,
+		data->philo_id, str);
 	sem_post(data->print);
 }
