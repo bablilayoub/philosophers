@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:01:50 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/16 01:28:28 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:02:32 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	*checker(void *args)
 		if (data->n_times_to_eat != -1
 			&& data->meals_count >= data->n_times_to_eat)
 			exit(0);
+		usleep(100);
 	}
 	return (NULL);
 }

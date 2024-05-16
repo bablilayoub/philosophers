@@ -6,27 +6,30 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/16 01:32:46 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:08:47 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	delete_data(t_data *data, int free_philos)
+void	delete_data(t_data *data, int free_philos, int should_kill)
 {
 	int		i;
 	int		status;
 
 	i = -1;
-	while (++i < data->n_philos)
+	if (should_kill)
 	{
-		waitpid(-1, &status, 0);
-		if (status != 0)
+		while (++i < data->n_philos)
 		{
-			i = -1;
-			while (++i < data->n_philos)
-				kill(data->philos[i], SIGKILL);
-			break ;
+			waitpid(-1, &status, 0);
+			if (status != 0)
+			{
+				i = -1;
+				while (++i < data->n_philos)
+					kill(data->philos[i], SIGKILL);
+				break ;
+			}
 		}
 	}
 	sem_close(data->print);
@@ -38,11 +41,11 @@ void	delete_data(t_data *data, int free_philos)
 		free(data->philos);
 }
 
-void	exit_program(char *message, int free, t_data *data)
+void	exit_program(char *message, int free, t_data *data, int should_kill)
 {
 	if (message)
 		printf("%s\n", message);
-	delete_data(data, free);
+	delete_data(data, free, should_kill);
 	exit(1);
 }
 
@@ -55,9 +58,10 @@ int	get_number(char *str)
 	i = 0;
 	result = 0;
 	sign = 1;
-	if (str[i] == '-')
+	if (str[i] == '+' || str[i] == '-')
 	{
-		sign = -1;
+		if (str[i] == '-')
+			sign = -sign;
 		i++;
 	}
 	while (str[i] && str[i] == '0' && str[i + 1] != '\0')

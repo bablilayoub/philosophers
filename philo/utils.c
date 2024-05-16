@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/04/17 12:35:49 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:09:21 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int	get_number(char *str)
 	i = 0;
 	result = 0;
 	sign = 1;
-	if (str[i] == '-')
+	if (str[i] == '+' || str[i] == '-')
 	{
-		sign = -1;
+		if (str[i] == '-')
+			sign = -sign;
 		i++;
 	}
 	while (str[i] && str[i] == '0' && str[i + 1] != '\0')

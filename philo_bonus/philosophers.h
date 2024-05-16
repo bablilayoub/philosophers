@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/16 01:24:37 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:06:33 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ typedef struct s_data
 }	t_data;
 
 // Utils
-void		exit_program(char *message, int free, t_data *data);
+void		exit_program(char *message, int free, t_data *data,
+				int should_kill);
 int			get_number(char *str);
 void		print(t_data *philo, int message);
-void		delete_data(t_data *data, int free_philos);
+void		delete_data(t_data *data, int free_philos, int should_kill);
 
 // Time
 long long	get_time(void);

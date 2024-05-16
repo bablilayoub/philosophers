@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/16 01:31:35 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:06:48 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_data(t_data *data, char **args)
 	if (!data->philos)
 		return (-1);
 	data->meals_count = 0;
-	(1) && (data->forks = NULL, data->lock == NULL);
+	(1) && (data->forks = NULL, data->lock = NULL);
 	data->print = NULL;
 	data->start_time = 0;
 	data->last_meal = 0;
@@ -68,16 +68,16 @@ int	init_process(t_data *data)
 	{
 		data->philos[i] = fork();
 		if (data->philos[i] == -1)
-			exit_program("Failed to fork", 1, data);
+			exit_program("Failed to fork", 1, data, 0);
 		if (data->philos[i] == 0)
 		{
 			data->philo_id = i + 1;
 			data->last_meal = data->start_time;
 			if (pthread_create(&data->monitor_thread,
 					NULL, &checker, data))
-				exit_program("Failed to create the thread", 1, data);
+				exit_program("Failed to create the thread", 1, data, 0);
 			if (pthread_detach(data->monitor_thread) != 0)
-				exit_program("Failed to detach the thread", 1, data);
+				exit_program("Failed to detach the thread", 1, data, 0);
 			routine(data);
 		}
 	}
