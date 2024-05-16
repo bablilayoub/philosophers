@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:57:38 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 19:31:15 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:31:35 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ int	init_semaphores(t_data *data)
 {
 	sem_unlink("/forks");
 	sem_unlink("/print");
+	sem_unlink("/lock");
 	data->forks = sem_open("/forks", O_CREAT, 0644, data->n_philos);
 	if (data->forks == SEM_FAILED)
 		return (-1);
 	data->print = sem_open("/print", O_CREAT, 0644, 1);
 	if (data->print == SEM_FAILED)
+		return (-1);
+	data->lock = sem_open("/lock", O_CREAT, 0644, 1);
+	if (data->lock == SEM_FAILED)
 		return (-1);
 	return (0);
 }
@@ -42,7 +46,7 @@ int	init_data(t_data *data, char **args)
 	if (!data->philos)
 		return (-1);
 	data->meals_count = 0;
-	data->forks = NULL;
+	(1) && (data->forks = NULL, data->lock == NULL);
 	data->print = NULL;
 	data->start_time = 0;
 	data->last_meal = 0;

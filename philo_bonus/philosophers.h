@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:14:58 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 17:05:21 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:24:37 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	long long		last_meal;
 	sem_t			*print;
 	sem_t			*forks;
+	sem_t			*lock;
 	pthread_t		monitor_thread;
 }	t_data;
 

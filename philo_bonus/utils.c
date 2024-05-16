@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 19:38:00 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:32:46 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	delete_data(t_data *data, int free_philos)
 	sem_close(data->forks);
 	sem_unlink("/print");
 	sem_unlink("/forks");
+	sem_unlink("/lock");
 	if (free_philos)
 		free(data->philos);
 }

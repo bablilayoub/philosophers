@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:55:29 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 17:11:23 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:32:20 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	eat(t_data *data)
 {
 	print(data, EAT);
 	custom_usleep(data->time_to_eat);
+	sem_wait(data->lock);
 	data->last_meal = get_time();
+	sem_post(data->lock);
 }
 
 void	sleep_and_think(t_data *data)

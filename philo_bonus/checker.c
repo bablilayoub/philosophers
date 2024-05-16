@@ -6,7 +6,7 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:01:50 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/14 19:37:40 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:28:28 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	*checker(void *args)
 {
 	t_data		*data;
 	long long	current_time;
+	long long	last_meal;
 
 	data = (t_data *)args;
 	while (1)
 	{
+		sem_wait(data->lock);
 		current_time = get_time();
-		if (current_time - data->last_meal > data->time_to_die)
+		last_meal = data->last_meal;
+		sem_post(data->lock);
+		if (current_time - last_meal > data->time_to_die)
 		{
 			sem_wait(data->print);
 			printf("%lld %ld died\n", current_time - data->start_time,
@@ -31,7 +35,6 @@ void	*checker(void *args)
 		if (data->n_times_to_eat != -1
 			&& data->meals_count >= data->n_times_to_eat)
 			exit(0);
-		custom_usleep(100);
 	}
 	return (NULL);
 }
