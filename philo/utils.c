@@ -6,11 +6,31 @@
 /*   By: abablil <abablil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:59:53 by abablil           #+#    #+#             */
-/*   Updated: 2024/05/16 15:09:21 by abablil          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:16:02 by abablil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	delete_data(t_data *data, int free_data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->n_philos)
+		pthread_mutex_destroy(&data->philos[i].philo_lock);
+	i = -1;
+	while (++i < data->n_philos)
+		pthread_mutex_destroy(&data->forks[i]);
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->death_lock);
+	pthread_mutex_destroy(&data->time_lock);
+	if (free_data)
+	{
+		free(data->forks);
+		free(data->philos);
+	}
+}
 
 void	end_simulation(t_data *data)
 {
